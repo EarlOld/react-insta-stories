@@ -52,7 +52,7 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
                 <video
                     ref={vid}
                     style={computedStyles}
-                    controls={false}
+                    controls={true}
                     onLoadedData={videoLoaded}
                     playsInline
                     onWaiting={onWaiting}
