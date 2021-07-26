@@ -1,11 +1,14 @@
 import * as React from 'react';
 import Spinner from '../components/Spinner';
+import Play from '../components/Play';
 import { Renderer, Tester } from './../interfaces';
 import WithHeader from './wrappers/withHeader';
 import WithSeeMore from './wrappers/withSeeMore';
 
 export const renderer: Renderer = ({ story, action, isPaused, config, messageHandler }) => {
     const [loaded, setLoaded] = React.useState(false);
+    const [muted, setMuted] = React.useState(false);
+    const [paying, setPlaying] = React.useState(false);
     const { width, height, loader, storyStyles } = config;
 
     let computedStyles = {
@@ -37,31 +40,37 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
         messageHandler('UPDATE_VIDEO_DURATION', { duration: vid.current.duration });
         setLoaded(true);
         vid.current.play().then(() => {
+            setPlaying(true);
             action('play');
         }).catch(() => {
-            vid.current.play().finally(() => {
-                action('play');
+            // setMuted(true);
+            setPlaying(false);
 
-            })
+            // vid.current.play().finally(() => {
+            //     action('play');
+            // })
         });
     }
 
     return <WithHeader story={story} globalHeader={config.header}>
         <WithSeeMore story={story} action={action}>
             <div style={styles.videoContainer}>
+                {!paying && <div onClick={videoLoaded}>
+                    <Play />
+                </div>}
                 <video
                     ref={vid}
                     style={computedStyles}
-                    controls={true}
+                    src={story.url}
+                    controls={false}
                     onLoadedData={videoLoaded}
                     playsInline
                     onWaiting={onWaiting}
                     onPlaying={onPlaying}
+                    muted={false}
                     autoPlay
                     webkit-playsinline="true"
-                >
-                    <source src={story.url} type="video/mp4"></source>
-                </video>
+                />
                 {!loaded && (
                     <div
                         style={{
