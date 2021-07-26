@@ -55,7 +55,6 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
                     controls={true}
                     onLoadedData={videoLoaded}
                     playsInline
-                    muted={false}
                     onWaiting={onWaiting}
                     onPlaying={onPlaying}
                     autoPlay
