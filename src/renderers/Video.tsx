@@ -53,6 +53,8 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
     }
 
     const handleVideoPlay = () => {
+        messageHandler('UPDATE_VIDEO_DURATION', { duration: vid.current.duration });
+
         vid.current.play().then(() => {
             setPlaying(true);
             action('play');
