@@ -7,7 +7,6 @@ import WithSeeMore from './wrappers/withSeeMore';
 
 export const renderer: Renderer = ({ story, action, isPaused, config, messageHandler }) => {
     const [loaded, setLoaded] = React.useState(false);
-    const [muted, setMuted] = React.useState(false);
     const [paying, setPlaying] = React.useState(false);
     const { width, height, loader, storyStyles } = config;
 
@@ -43,12 +42,8 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
             setPlaying(true);
             action('play');
         }).catch(() => {
-            setMuted(true);
+            action('pause');
             setPlaying(false);
-
-            vid.current.play().finally(() => {
-                action('play');
-            })
         });
     }
 
@@ -67,7 +62,7 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
     return <WithHeader story={story} globalHeader={config.header}>
         <WithSeeMore story={story} action={action}>
             <div style={styles.videoContainer}>
-                {!paying && <div
+                {(!paying && loaded) && <div
                         style={{
                             width: '100%',
                             height: '100%',
