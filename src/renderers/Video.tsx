@@ -36,13 +36,7 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
     const videoLoaded = () => {
         messageHandler('UPDATE_VIDEO_DURATION', { duration: vid.current.duration });
         setLoaded(true);
-        vid.current.play().then(() => {
-            action('play');
-        }).catch(() => {
-            vid.current.play().finally(() => {
-                action('play');
-            })
-        });
+        action('play');
     }
 
     return <WithHeader story={story} globalHeader={config.header}>
@@ -51,7 +45,6 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
                 <video
                     ref={vid}
                     style={computedStyles}
-                    src={story.url}
                     controls={false}
                     onLoadedData={videoLoaded}
                     playsInline
@@ -59,7 +52,9 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
                     onPlaying={onPlaying}
                     autoPlay
                     webkit-playsinline="true"
-                />
+                >
+                    <source src={`${story.url}?tepm=${Date.now()}`} type="video/mp4"></source>
+                </video>
                 {!loaded && (
                     <div
                         style={{
