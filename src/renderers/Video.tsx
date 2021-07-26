@@ -43,12 +43,22 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
             setPlaying(true);
             action('play');
         }).catch(() => {
-            // setMuted(true);
+            setMuted(true);
             setPlaying(false);
 
-            // vid.current.play().finally(() => {
-            //     action('play');
-            // })
+            vid.current.play().finally(() => {
+                action('play');
+            })
+        });
+    }
+
+    const handleVideoPlay = () => {
+        vid.current.play().then(() => {
+            setPlaying(true);
+            action('play');
+        }).catch(() => {
+            setPlaying(false);
+            action('pause');
         });
     }
 
@@ -57,20 +67,19 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
             <div style={styles.videoContainer}>
                 {!paying && <div
                         style={{
-                            width: width,
-                            height: height,
+                            width: '100%',
+                            height: '100%',
                             position: "absolute",
                             left: 0,
                             top: 0,
-                            background: "rgba(0, 0, 0, 0.9)",
-                            zIndex: 9,
+                            background: "rgba(0, 0, 0, 0.5)",
+                            zIndex: 9999,
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
                             color: "#ccc"
                         }}
-                        onClick={videoLoaded}
-
+                        onClick={handleVideoPlay}
                     >
                     <Play />
                 </div>}
