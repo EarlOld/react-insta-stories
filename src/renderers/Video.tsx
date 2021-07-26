@@ -55,12 +55,13 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
                     controls={true}
                     onLoadedData={videoLoaded}
                     playsInline
+                    muted={false}
                     onWaiting={onWaiting}
                     onPlaying={onPlaying}
                     autoPlay
                     webkit-playsinline="true"
                 >
-                    <source src={`${story.url}?tepm=${Date.now()}`} type="video/mp4"></source>
+                    <source src={story.url} type="video/mp4"></source>
                 </video>
                 {!loaded && (
                     <div
