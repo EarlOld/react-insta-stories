@@ -9,10 +9,10 @@ const Story = (props: StoryProps) => {
 
 	const { width, height, loader, header, storyStyles } = globalContext;
 
-	const rendererMessageHandler = (type: string, data: any) => {
+	const rendererMessageHandler = (type: string, duration: any) => {
 		switch (type) {
 			case 'UPDATE_VIDEO_DURATION':
-				props.getVideoDuration(data.duration);
+				props.getVideoDuration(duration);
 				return { ack: 'OK' as 'OK' }
 		}
 	}
