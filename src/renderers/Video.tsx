@@ -55,7 +55,23 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
     return <WithHeader story={story} globalHeader={config.header}>
         <WithSeeMore story={story} action={action}>
             <div style={styles.videoContainer}>
-                {!paying && <div onClick={videoLoaded}>
+                {!paying && <div
+                        style={{
+                            width: width,
+                            height: height,
+                            position: "absolute",
+                            left: 0,
+                            top: 0,
+                            background: "rgba(0, 0, 0, 0.9)",
+                            zIndex: 9,
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            color: "#ccc"
+                        }}
+                        onClick={videoLoaded}
+
+                    >
                     <Play />
                 </div>}
                 <video
