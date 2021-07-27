@@ -23,11 +23,10 @@ export default ({ resetTimer, setResetTimer }) => {
     }, [resetTimer])
 
     useEffect(() => {
-        if (!pause) {
-            animationFrameId.current = requestAnimationFrame(incrementCount)
-        }
-        return () => {
+        if (pause) {
             cancelAnimationFrame(animationFrameId.current)
+        } else {
+            animationFrameId.current = requestAnimationFrame(incrementCount)
         }
     }, [currentId, pause])
 
