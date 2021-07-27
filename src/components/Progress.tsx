@@ -42,7 +42,7 @@ const styles: any = {
         borderRadius: 2,
         transformOrigin: 'center left',
         translate: ' left',
-        transition: "opacity 1.5s",
+        transition: "opacity 2s",
         WebkitBackfaceVisibility: 'hidden',
         MozBackfaceVisibility: 'hidden',
         msBackfaceVisibility: 'hidden',
