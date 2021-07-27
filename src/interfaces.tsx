@@ -135,7 +135,8 @@ export interface ProgressWrapperProps {
 }
 
 export interface ProgressArrayProps {
-
+    resetTimer: boolean,
+    setResetTimer: Function
 }
 
 export interface ProgressContext {

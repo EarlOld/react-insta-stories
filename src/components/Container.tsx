@@ -9,6 +9,7 @@ import { GlobalCtx, StoriesContext as StoriesContextInterface } from './../inter
 export default function () {
     const [currentId, setCurrentId] = useState<number>(0)
     const [pause, setPause] = useState<boolean>(true)
+    const [resetTimer, setResetTimer] = useState<boolean>(false)
     const [bufferAction, setBufferAction] = useState<boolean>(true)
     const [videoDuration, setVideoDuration] = useState<number>(0)
 
@@ -61,8 +62,12 @@ export default function () {
     }
 
     const toggleState = (action: string, bufferAction?: boolean) => {
-        setPause(action === 'pause')
-        setBufferAction(!!bufferAction)
+        if (action === 'reset') {
+            setResetTimer(true);
+        } else {
+            setPause(action === 'pause')
+            setBufferAction(!!bufferAction)
+        }
     }
 
     const setCurrentIdWrapper = (callback) => {
@@ -125,7 +130,7 @@ export default function () {
                 pause,
                 next
             }}>
-                <ProgressArray />
+                <ProgressArray resetTimer={resetTimer} setResetTimer={setResetTimer} />
             </ProgressContext.Provider>
             <Story
                 action={toggleState}

@@ -5,7 +5,7 @@ import ProgressCtx from './../context/Progress'
 import GlobalContext from './../context/Global'
 import StoriesContext from './../context/Stories'
 
-export default () => {
+export default ({ resetTimer, setResetTimer }) => {
     const [count, setCount] = useState<number>(0)
     const { currentId, next, videoDuration, pause } = useContext<ProgressContext>(ProgressCtx)
     const { defaultInterval, onStoryEnd, onStoryStart, onAllStoriesEnd } = useContext<GlobalCtx>(GlobalContext);
@@ -14,6 +14,13 @@ export default () => {
     useEffect(() => {
         setCount(0)
     }, [currentId, stories])
+
+    useEffect(() => {
+        if (resetTimer) {
+            setCount(0)
+            setResetTimer(false);
+        }
+    }, [resetTimer])
 
     useEffect(() => {
         if (!pause) {
