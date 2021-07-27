@@ -55,13 +55,8 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
             setPlaying(true);
             action('play');
         }).catch(() => {
-            vid.current.play().then(() => {
-                setPlaying(true);
-                action('play');
-            }).catch(() => {
-                setPlaying(false);
-                action('pause');
-            });
+            setPlaying(false);
+            action('pause');
         });
     }
 
@@ -95,6 +90,7 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
                     playsInline
                     onWaiting={onWaiting}
                     onPlaying={onPlaying}
+                    muted={false}
                     autoPlay
                     webkit-playsinline="true"
                 />
