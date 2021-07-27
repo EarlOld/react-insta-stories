@@ -7,7 +7,8 @@ import WithSeeMore from './wrappers/withSeeMore';
 
 export const renderer: Renderer = ({ story, action, isPaused, config, messageHandler }) => {
     const [loaded, setLoaded] = React.useState(false);
-    const [paying, setPlaying] = React.useState(false);
+    const [paying, setPlaying] = React.useState(true);
+    const [muted, setMuteed] = React.useState(false);
     const { loader, storyStyles } = config;
 
     let computedStyles = {
@@ -40,6 +41,7 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
         setLoaded(true);
         vid.current.play().then(() => {
             setPlaying(true);
+            vid.current.muted = false;
             action('play');
         }).catch(() => {
             action('pause');
@@ -90,7 +92,6 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
                     playsInline
                     onWaiting={onWaiting}
                     onPlaying={onPlaying}
-                    muted={false}
                     autoPlay
                     webkit-playsinline="true"
                 />
