@@ -41,12 +41,14 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
         setLoaded(true);
         vid.current.play().then(() => {
             setPlaying(true);
+            messageHandler('UPDATE_VIDEO_DURATION', { duration: vid.current.duration });
             action('reset');
             action('play');
         }).catch(() => {
             setMuted(true);
             vid.current.play().then(() => {
                 setPlaying(true);
+                messageHandler('UPDATE_VIDEO_DURATION', { duration: vid.current.duration });
                 action('reset');
                 action('play');
             }).catch(() => {
@@ -73,21 +75,21 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
         <WithSeeMore story={story} action={action}>
             <div style={styles.videoContainer}>
                 {(!paying && loaded) && <div
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            position: "absolute",
-                            left: 0,
-                            top: 0,
-                            background: "rgba(0, 0, 0, 0.5)",
-                            zIndex: 9999,
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            color: "#ccc"
-                        }}
-                        onClick={handleVideoPlay}
-                    >
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: "absolute",
+                        left: 0,
+                        top: 0,
+                        background: "rgba(0, 0, 0, 0.5)",
+                        zIndex: 9999,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        color: "#ccc"
+                    }}
+                    onClick={handleVideoPlay}
+                >
                     <Play />
                 </div>}
                 <video
