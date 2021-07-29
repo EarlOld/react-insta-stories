@@ -71,7 +71,7 @@ export default ({ resetTimer, setResetTimer }) => {
     }
 
     return (
-        <div style={styles.progressArr}>
+        <div style={{...styles.progressArr, opacity: pause ? 0 : 1}}>
             {stories.map((_, i) =>
                 <Progress
                     key={i}
@@ -90,6 +90,7 @@ const styles = {
         maxWidth: '100%',
         flexWrap: 'row',
         position: 'absolute',
+        transition: "opacity 2s",
         width: '98%',
         padding: 5,
         paddingTop: 7,

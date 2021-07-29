@@ -1,16 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { ProgressProps, ProgressContext } from './../interfaces'
 import ProgressWrapper from './ProgressWrapper'
 import ProgressCtx from './../context/Progress'
 
 export default (props: ProgressProps) => {
     const { bufferAction, pause } = useContext<ProgressContext>(ProgressCtx)
-    const [show, setShow] = useState<boolean>(false)
-
-    useEffect(() => {
-        setShow(!pause);
-    }, [pause])
-
 
     const getProgressStyle = ({ active }) => {
         switch (active) {
@@ -29,9 +23,9 @@ export default (props: ProgressProps) => {
     return (
         <ProgressWrapper width={width} pause={pause} bufferAction={bufferAction}>
             <div
-                style={{ ...getProgressStyle({ active }), ...styles.inner, opacity: show ? 1 : 0 }} />
+                style={{ ...getProgressStyle({ active }), ...styles.inner}} />
         </ProgressWrapper>
-    )
+    );
 }
 
 const styles: any = {
@@ -42,7 +36,6 @@ const styles: any = {
         borderRadius: 2,
         transformOrigin: 'center left',
         translate: ' left',
-        transition: "opacity 2s",
         WebkitBackfaceVisibility: 'hidden',
         MozBackfaceVisibility: 'hidden',
         msBackfaceVisibility: 'hidden',
