@@ -43,7 +43,7 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
             setPlaying(true);
             action('play');
         }).catch(() => {
-            setMuted(false);
+            setMuted(true);
             vid.current.play().then(() => {
                 setPlaying(true);
                 action('play');
