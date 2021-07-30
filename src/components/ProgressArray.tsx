@@ -71,7 +71,7 @@ export default ({ resetTimer, setResetTimer }) => {
     }
 
     return (
-        <div style={{...styles.progressArr, opacity: pause ? 0 : 1}}>
+        <div style={{...styles.progressArr}}>
             {stories.map((_, i) =>
                 <Progress
                     key={i}
