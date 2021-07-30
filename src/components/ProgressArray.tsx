@@ -8,7 +8,7 @@ import StoriesContext from './../context/Stories'
 export default ({ resetTimer, setResetTimer }) => {
     const [count, setCount] = useState<number>(0)
     const { currentId, next, videoDuration, pause } = useContext<ProgressContext>(ProgressCtx)
-    const { defaultInterval, onStoryEnd, onStoryStart, onAllStoriesEnd } = useContext<GlobalCtx>(GlobalContext);
+    const { defaultInterval, onStoryEnd, onStoryStart, onAllStoriesEnd, isPaused } = useContext<GlobalCtx>(GlobalContext);
     const { stories } = useContext<StoriesContextInterface>(StoriesContext);
 
     useEffect(() => {
@@ -43,12 +43,14 @@ export default ({ resetTimer, setResetTimer }) => {
         if (countCopy < 100) {
             animationFrameId.current = requestAnimationFrame(incrementCount)
         } else {
-            storyEndCallback();
-            if (currentId === stories.length - 1) {
-                allStoriesEndCallback();
+            if (!isPaused) {
+                storyEndCallback();
+                if (currentId === stories.length - 1) {
+                    allStoriesEndCallback();
+                }
+                cancelAnimationFrame(animationFrameId.current);
+                next();
             }
-            cancelAnimationFrame(animationFrameId.current);
-            next();
         }
     }
 
