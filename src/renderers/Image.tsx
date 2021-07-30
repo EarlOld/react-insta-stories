@@ -13,8 +13,10 @@ export const renderer: Renderer = ({ story, action, isPaused, config }) => {
     }
 
     const imageLoaded = () => {
+        if (!isPaused) {
+            action('play');
+        }
         setLoaded(true);
-        action('play');
     }
 
     return <WithHeader story={story} globalHeader={config.header}>
