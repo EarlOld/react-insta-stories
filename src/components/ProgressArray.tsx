@@ -26,6 +26,7 @@ export default ({ resetTimer, setResetTimer }) => {
         if (pause) {
             cancelAnimationFrame(animationFrameId.current)
         } else {
+            cancelAnimationFrame(animationFrameId.current)
             animationFrameId.current = requestAnimationFrame(incrementCount)
         }
     }, [currentId, pause])
