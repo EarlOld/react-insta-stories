@@ -18,6 +18,8 @@ export default ({ resetTimer, setResetTimer }) => {
     useEffect(() => {
         if (resetTimer) {
             setCount(0)
+            cancelAnimationFrame(animationFrameId.current)
+            animationFrameId.current = requestAnimationFrame(incrementCount)
             setResetTimer(false);
         }
     }, [resetTimer])
