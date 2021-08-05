@@ -39,14 +39,17 @@ export const renderer: Renderer = ({ story, action, isPaused, config, messageHan
     const videoLoaded = () => {
         messageHandler('UPDATE_VIDEO_DURATION', { duration: vid.current.duration });
         setLoaded(true);
+        action('pause');
         vid.current.play().then(() => {
             setPlaying(true);
+            action('reset');
             action('play');
         }).catch(() => {
             setMuted(true);
             action('pause');
             vid.current.play().then(() => {
                 setPlaying(true);
+                action('reset');
                 action('play');
             }).catch(() => {
                 action('pause');
