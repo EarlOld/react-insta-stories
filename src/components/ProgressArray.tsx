@@ -13,7 +13,7 @@ export default ({ resetTimer, setResetTimer }) => {
 
     useEffect(() => {
         setCount(0)
-    }, [currentId, stories])
+    }, [currentId])
 
     useEffect(() => {
         if (resetTimer) {
@@ -24,6 +24,7 @@ export default ({ resetTimer, setResetTimer }) => {
 
     useEffect(() => {
         if (pause) {
+            setCount(0)
             cancelAnimationFrame(animationFrameId.current)
         } else {
             cancelAnimationFrame(animationFrameId.current)
