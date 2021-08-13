@@ -26,7 +26,6 @@ export default ({ resetTimer, setResetTimer }) => {
 
     useEffect(() => {
         if (pause) {
-            setCount(0)
             cancelAnimationFrame(animationFrameId.current)
         } else {
             cancelAnimationFrame(animationFrameId.current)
